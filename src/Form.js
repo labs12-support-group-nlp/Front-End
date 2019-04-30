@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import fakeUrl from './services/api'
-import fetchGroups from './services/api'
+import axios from 'axios';
+import GroupsList from './GroupsList'
 
 
 class Form extends Component {
@@ -10,17 +10,11 @@ class Form extends Component {
 
     this.state = {
       text: '',
-      groups: []
+      groups: {}
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-
-  handleSubmit(ev) {
-    ev.preventDefault();
-    this.props.onSubmit(this.state.text);
   }
 
   handleChange(ev) {
@@ -30,9 +24,22 @@ class Form extends Component {
     });
   }
 
-  render() {
-    const { groups } = this.props;
 
+  handleSubmit(ev) {
+    ev.preventDefault();
+    axios.post('http://nlpsgf02-env.kx543mpwxe.us-east-2.elasticbeanstalk.com/', {
+      text: this.state.text
+    })
+    .then(res => {
+      console.log(typeof res.data);
+      this.setState({
+          groups: res.data
+      })
+    })
+  }
+
+  render() {
+    console.log(this.state)
     return (
       <div>
       <div className='privacy'>
@@ -41,10 +48,11 @@ class Form extends Component {
           <input
             type="text"
             name="text"
-            value={this.state.text}
-            onChange={this.handleChange} />
-          <input type="submit" value="Submit Text" />
+            onChange={this.handleChange}
+            value={this.state.text}/>
+          <input type="submit" value="Submit" />
         </form>
+        <GroupsList groups={this.state.groups}/>
       </div>
       </div>
     );
