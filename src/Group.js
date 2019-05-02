@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react'
 
-export default class Group extends Component {
+export default function Group (props){
 
-  render() {
-    let groupName = Object.values(this.props.group)[0]
-    console.log(groupName)
+  let reddit_url = `https://www.reddit.com/r/${props.group[0]}/`
+
     return (
-      <div>{groupName}</div>
+        <li key={props.i} className='group-name'>
+           <a className='group-link' href={reddit_url}>
+              r/{props.group[0]}
+          </a>
+        </li>
       )
-  }
 }
 
