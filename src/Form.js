@@ -1,20 +1,21 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React from 'react'
+import axios from 'axios'
 import GroupsList from './GroupsList'
+import {MODEL_URL, DEV_URL, PROD_URL} from './services/api'
 
 
-class Form extends Component {
+export default class Form extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       text: '',
-      groups: {}
+      groups: []
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(ev) {
@@ -27,13 +28,13 @@ class Form extends Component {
 
   handleSubmit(ev) {
     ev.preventDefault();
-    axios.post('http://nlpsgf02-env.kx543mpwxe.us-east-2.elasticbeanstalk.com/', {
+    axios.post(PROD_URL, {
       text: this.state.text
     })
     .then(res => {
       console.log(typeof res.data);
       this.setState({
-          groups: res.data
+          groups: res.data.support_groups
       })
     })
   }
@@ -42,21 +43,21 @@ class Form extends Component {
     console.log(this.state)
     return (
       <div>
-      <div className='privacy'>
-        <h2>Write a text</h2>
+      <div className='main-container'>
+        <h1 className='page-header'>Write a text</h1>
+        <p>How are you feeling?</p>
         <form onSubmit={this.handleSubmit} >
-          <input
+          <textarea
+            className="input-text"
             type="text"
             name="text"
             onChange={this.handleChange}
             value={this.state.text}/>
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Submit" className="form-submit-button"/>
         </form>
         <GroupsList groups={this.state.groups}/>
       </div>
       </div>
-    );
+    )
   }
 }
-
-export default Form;

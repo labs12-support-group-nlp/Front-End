@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react'
 
-export default class Privacy extends Component {
+export default class Privacy extends React.Component {
   render() {
     return (
       <div>
-        <div className='privacy'>
-        <h1>Welcome to our Privacy Policy</h1>
+        <div className='main-container'>
+        <h1 className='page-header'>Welcome to our Privacy Policy</h1>
         <h3>Your privacy is critically important to us.</h3>
         <address>NLP Support Groups Finder</address>
         <p>It is NLP Support Groups Finder’s policy to respect your privacy
@@ -73,11 +73,9 @@ export default class Privacy extends Component {
       <p>Although most changes are likely to be minor, NLP Support Groups Finder may change its
       Privacy Policy from time to time, and in NLP Support Groups Finder’s sole discretion. NLP Support Groups Finder encourages visitors to frequently check this page for any changes to its Privacy Policy. Your continued use of this site after any change in this Privacy Policy will constitute your acceptance of such change.</p>
         <h2>Privacy Policy</h2>
-        <p>If you have any questions about this Privacy Policy, please contact us via email:
-        zarrina_@hotmail.com</p>
-
+        <p>If you have any questions about this Privacy Policy, please contact us via email:zarrina_@hotmail.com</p>
+        </div>
       </div>
-      </div>
-    );
+    )
   }
 }
